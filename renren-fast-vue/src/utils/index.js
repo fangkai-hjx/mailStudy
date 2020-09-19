@@ -16,7 +16,9 @@ export function getUUID () {
  * @param {*} key
  */
 export function isAuth (key) {
-  return JSON.parse(sessionStorage.getItem('permissions') || '[]').indexOf(key) !== -1 || false
+  // return JSON.parse(sessionStorage.getItem('permissions') || '[]').indexOf(key) !== -1 || false
+  //权限管理，这里先注释掉
+  return true;
 }
 
 /**

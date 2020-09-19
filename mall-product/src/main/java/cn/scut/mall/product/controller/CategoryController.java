@@ -48,7 +48,7 @@ public class CategoryController {
                 .collect(Collectors.toList());
         //2.2 查找到二级分类 保存到指定的一级分类
 //        level1Menus.stream()
-        return R.ok().put("page", level1Menus);
+        return R.ok().put("data", level1Menus);
     }
 
     /**
@@ -97,8 +97,7 @@ public class CategoryController {
      */
     @RequestMapping("/update")
     public R update(@RequestBody CategoryEntity category) {
-        categoryService.updateById(category);
-
+        categoryService.updateCascade(category);
         return R.ok();
     }
 

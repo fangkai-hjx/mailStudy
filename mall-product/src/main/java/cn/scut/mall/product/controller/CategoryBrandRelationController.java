@@ -1,14 +1,13 @@
 package cn.scut.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.scut.mall.product.entity.AttrGroupEntity;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.product.entity.CategoryBrandRelationEntity;
 import cn.scut.mall.product.service.CategoryBrandRelationService;
@@ -31,6 +30,26 @@ public class CategoryBrandRelationController {
     private CategoryBrandRelationService categoryBrandRelationService;
 
     /**
+     * 获取品牌关联的分类
+     */
+    @GetMapping("/catelog/list")
+    public R categoryBrandList(@RequestParam("brandId") Long brandId){
+        List<CategoryBrandRelationEntity> list = categoryBrandRelationService.list(
+                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id",brandId)
+        );
+        return R.ok().put("data", list);
+    }
+    /**
+     * 保品牌于 分类的 关联信息
+     * {"brandId":1,"catelogId":2}
+     *  我们同时保存 brandName,CategoryName
+     */
+    @PostMapping("/save")
+    public R categoryBrandSave(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
+        categoryBrandRelationService.saveDetail(categoryBrandRelation);
+        return R.ok();
+    }
+    /**
      * 列表
      */
     @RequestMapping("/list")
@@ -49,16 +68,6 @@ public class CategoryBrandRelationController {
 		CategoryBrandRelationEntity categoryBrandRelation = categoryBrandRelationService.getById(id);
 
         return R.ok().put("categoryBrandRelation", categoryBrandRelation);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    public R save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
-		categoryBrandRelationService.save(categoryBrandRelation);
-
-        return R.ok();
     }
 
     /**

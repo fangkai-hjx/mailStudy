@@ -33,8 +33,9 @@ import cn.scut.common.utils.R;
 
 @RestController
 @RequestMapping("coupon/coupon")
-@RefreshScope//刷新配置(配置中心)
+@RefreshScope//配置中心 配置后 动态刷新配置(配置中心)
 public class CouponController {
+
     @Autowired
     private CouponService couponService;
 

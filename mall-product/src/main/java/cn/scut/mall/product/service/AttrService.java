@@ -1,5 +1,6 @@
 package cn.scut.mall.product.service;
 
+import cn.scut.mall.product.vo.AttrVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.scut.common.utils.PageUtils;
 import cn.scut.mall.product.entity.AttrEntity;
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface AttrService extends IService<AttrEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveAttr(AttrVo attr);
 }
 
