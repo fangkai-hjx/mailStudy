@@ -1,9 +1,11 @@
 package cn.scut.mall.product.service;
 
+import cn.scut.mall.product.entity.BrandEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.scut.common.utils.PageUtils;
 import cn.scut.mall.product.entity.CategoryBrandRelationEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,5 +24,7 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     void updateBrand(Long brandId, String name);
 
     void updateCategory(Long catId, String name);
+
+    List<BrandEntity> getBrandsByCatId(Long catId);
 }
 

@@ -3,13 +3,10 @@ package cn.scut.mall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import cn.scut.mall.product.vo.AttrRespVo;
 import cn.scut.mall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.product.entity.AttrEntity;
 import cn.scut.mall.product.service.AttrService;
@@ -32,6 +29,20 @@ public class AttrController {
     private AttrService attrService;
 
     /**
+     * 获取 基础属性 sale/list/0
+     * 获取 销售属性 base/list/{catelogId}
+     */
+    @GetMapping("{attrType}/list/{catelogId}")
+    public R baeList(@RequestParam Map<String, Object> params,
+                     @PathVariable("catelogId")Long catelogId,
+                     @PathVariable("attrType")String type){
+        PageUtils page = attrService.queryBaseAttrPage(params,catelogId,type);
+
+        return R.ok().put("page", page);
+    }
+
+
+    /**
      * 列表
      */
     @RequestMapping("/list")
@@ -47,9 +58,9 @@ public class AttrController {
      */
     @RequestMapping("/info/{attrId}")
     public R info(@PathVariable("attrId") Long attrId){
-		AttrEntity attr = attrService.getById(attrId);
+		AttrRespVo attrRespVo = attrService.getAttrInfo(attrId);
 
-        return R.ok().put("attr", attr);
+        return R.ok().put("attr", attrRespVo);
     }
 
     /**
@@ -63,11 +74,11 @@ public class AttrController {
     }
 
     /**
-     * 修改
+     * 修改,这里修改基础属性 的 同时 要 修改 属性分组关联表
      */
     @RequestMapping("/update")
-    public R update(@RequestBody AttrEntity attr){
-		attrService.updateById(attr);
+    public R update(@RequestBody AttrVo attr){
+		attrService.updateAttr(attr);
 
         return R.ok();
     }

@@ -1,9 +1,19 @@
 package cn.scut.mall.product.service.impl;
 
+import cn.scut.mall.product.entity.AttrAttrgroupRelationEntity;
+import cn.scut.mall.product.entity.AttrEntity;
+import cn.scut.mall.product.service.AttrAttrgroupRelationService;
+import cn.scut.mall.product.service.AttrService;
+import cn.scut.mall.product.vo.AttrGroupRelationVo;
+import cn.scut.mall.product.vo.AttrGroupWithAttrsVo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -18,6 +28,8 @@ import cn.scut.mall.product.service.AttrGroupService;
 
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
+    @Autowired
+    AttrService attrService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -52,5 +64,21 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
                 queryWrapper//查询信息
         );
         return new PageUtils(page);
+    }
+
+    @Override
+    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsBy(Long catelogId) {
+        //查询分组信息
+        List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
+        //查询所有属性
+        List<AttrGroupWithAttrsVo> collect = attrGroupEntities.stream().map(group -> {
+            AttrGroupWithAttrsVo attrGroupWithAttrsVo = new AttrGroupWithAttrsVo();
+            BeanUtils.copyProperties(group, attrGroupWithAttrsVo);
+
+            List<AttrEntity> attrList = attrService.getRelationAttr(group.getAttrGroupId());
+            attrGroupWithAttrsVo.setAttrs(attrList);
+            return attrGroupWithAttrsVo;
+        }).collect(Collectors.toList());
+        return collect;
     }
 }

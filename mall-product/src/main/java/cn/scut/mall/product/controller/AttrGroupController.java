@@ -1,15 +1,17 @@
 package cn.scut.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.scut.mall.product.entity.AttrEntity;
+import cn.scut.mall.product.service.AttrAttrgroupRelationService;
+import cn.scut.mall.product.service.AttrService;
 import cn.scut.mall.product.service.CategoryService;
+import cn.scut.mall.product.vo.AttrGroupRelationVo;
+import cn.scut.mall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.product.entity.AttrGroupEntity;
 import cn.scut.mall.product.service.AttrGroupService;
@@ -34,6 +36,35 @@ public class AttrGroupController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private AttrService attrService;
+
+    @Autowired
+    private AttrAttrgroupRelationService attrAttrgroupRelationService;
+
+    //    product/attrgroup/3/attr/relation 获取所有 分组 和 基本属性的 关联
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> attrEntityList = attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data",attrEntityList);
+    }
+
+    //获取分类下所有分组&关联属性
+    //product/attrgroup/{catelogId}/withattr
+    @GetMapping("/{catelogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
+        //查出当前 分类 下 的 所有属性 分组
+        List<AttrGroupWithAttrsVo> list = attrGroupService.getAttrGroupWithAttrsBy(catelogId);
+        //查出每个属性分组的 所有属性
+        return R.ok().put("data",list);
+    }
+    //    product/attrgroup/1/noattr/relation?t=1600583406073&page=1&limit=10&key=
+    @GetMapping("/{attrgroupId}/noattr/relation")
+    public R attrNoRelation(@RequestParam Map<String, Object> params,
+                            @PathVariable("attrgroupId") Long attrgroupId){
+        PageUtils pageUtils = attrService.getNoRelationAttr(params,attrgroupId);
+        return R.ok().put("page",pageUtils);
+    }
     /**
      * 列表
      */
@@ -43,8 +74,12 @@ public class AttrGroupController {
         PageUtils page = attrGroupService.queryPage(params,catelogId);
         return R.ok().put("page", page);
     }
-
-
+//    product/attrgroup/attr/relation
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> relationList){
+        attrAttrgroupRelationService.saveBatch(relationList);
+        return R.ok();
+    }
     /**
      * 信息
      */
@@ -74,6 +109,12 @@ public class AttrGroupController {
     public R update(@RequestBody AttrGroupEntity attrGroup){
 		attrGroupService.updateById(attrGroup);
 
+        return R.ok();
+    }
+//    product/attrgroup/attr/relation/delete
+    @PostMapping("/attr/relation/delete")
+    public R removeAttrGroup(@RequestBody AttrGroupRelationVo[] vos){
+        attrService.deleteRelation(vos);
         return R.ok();
     }
 

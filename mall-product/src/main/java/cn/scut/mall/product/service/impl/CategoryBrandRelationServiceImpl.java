@@ -4,12 +4,16 @@ import cn.scut.mall.product.dao.BrandDao;
 import cn.scut.mall.product.dao.CategoryDao;
 import cn.scut.mall.product.entity.BrandEntity;
 import cn.scut.mall.product.entity.CategoryEntity;
+import cn.scut.mall.product.service.BrandService;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,6 +33,12 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
 
     @Autowired
     CategoryDao categoryDao;
+
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
+
+    @Autowired
+    BrandService brandService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -63,6 +73,22 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public void updateCategory(Long catId, String name) {
         this.baseMapper.updateCategory(catId,name);
+    }
+
+    /**
+     * 这样写 是 为了 重用 这个 方法
+     * 将 信息 封装为 brand  ，因为 有些请求 需要 获得 brand 信息
+     * @param catId
+     * @return
+     */
+    @Override
+    public List<BrandEntity> getBrandsByCatId(Long catId) {
+        List<CategoryBrandRelationEntity> relationEntityList = categoryBrandRelationService.list(new QueryWrapper<CategoryBrandRelationEntity>().eq("catelog_id", catId));
+        List<BrandEntity> collect = relationEntityList.stream().map(item -> {
+            BrandEntity brandEntity = brandService.getById(item.getBrandId());
+            return brandEntity;
+        }).collect(Collectors.toList());
+        return collect;
     }
 
 }

@@ -18,6 +18,7 @@
   import MainNavbar from './main-navbar'
   import MainSidebar from './main-sidebar'
   import MainContent from './main-content'
+  import PubSub from 'pubsub-js'
   export default {
     provide () {
       return {

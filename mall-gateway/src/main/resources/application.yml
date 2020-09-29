@@ -31,6 +31,12 @@ spring:
             - Path=/api/thirdparty/** # 前端项目api
           filters:
             - RewritePath=/api/thirdparty/(?<segment>/?.*), /$\{segment} # 这里是把api去掉
+        - id: member_route
+          uri: lb://mall-member
+          predicates:
+            - Path=/api/member/** # 前端项目api
+          filters:
+              - RewritePath=/api/(?<segment>/?.*),/$\{segment}
         - id: admin_route
           uri: lb://renren-fast # lb表示负载均衡
           predicates:
@@ -41,4 +47,5 @@ spring:
 #            - http://localhost:8080/  renren-fast/captcha.jpg
 #            使用路径重写
 # http://localhost:88/api/blog/blog/list?t=1600400237129&page=1&limit=10&key= 404 (Not Found)
+
 
