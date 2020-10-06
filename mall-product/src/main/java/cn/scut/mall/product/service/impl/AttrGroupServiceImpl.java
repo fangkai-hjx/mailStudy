@@ -67,7 +67,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     }
 
     @Override
-    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsBy(Long catelogId) {
+    public List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCategory(Long catelogId) {
         //查询分组信息
         List<AttrGroupEntity> attrGroupEntities = this.list(new QueryWrapper<AttrGroupEntity>().eq("catelog_id", catelogId));
         //查询所有属性

@@ -1,14 +1,12 @@
 package cn.scut.mall.ware.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.scut.mall.ware.vo.SkuHasStockVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.ware.entity.WareSkuEntity;
 import cn.scut.mall.ware.service.WareSkuService;
@@ -31,11 +29,21 @@ public class WareSkuController {
     private WareSkuService wareSkuService;
 
     /**
+     * 查询 sku是否 有 库存
+     * @return
+     */
+    @PostMapping("/hasstock")
+    public R getSkuHasStock(@RequestBody List<Long>skuIds){
+        List<SkuHasStockVo> list = wareSkuService.getSkuHasStock(skuIds);//sku_id stock
+        return R.ok().put("data",list);
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = wareSkuService.queryPage(params);
+        PageUtils page = wareSkuService.queryPageByCondition(params);
 
         return R.ok().put("page", page);
     }

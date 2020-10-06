@@ -1,4 +1,4 @@
-package cn.scut.mall.product.controller;
+package cn.scut.mall.product.app;
 
 import java.util.Arrays;
 import java.util.Map;

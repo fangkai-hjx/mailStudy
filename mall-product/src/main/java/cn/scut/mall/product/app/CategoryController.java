@@ -1,4 +1,4 @@
-package cn.scut.mall.product.controller;
+package cn.scut.mall.product.app;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cn.scut.mall.product.entity.CategoryEntity;
 import cn.scut.mall.product.service.CategoryService;
-import cn.scut.common.utils.PageUtils;
 import cn.scut.common.utils.R;
 
 

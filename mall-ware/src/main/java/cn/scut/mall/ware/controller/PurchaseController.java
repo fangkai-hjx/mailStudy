@@ -1,14 +1,15 @@
 package cn.scut.mall.ware.controller;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import cn.scut.common.constant.WareConstant;
+import cn.scut.mall.ware.vo.MergeVo;
+import cn.scut.mall.ware.vo.PurchaseDoneVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.ware.entity.PurchaseEntity;
 import cn.scut.mall.ware.service.PurchaseService;
@@ -30,6 +31,45 @@ public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
 
+
+    /**
+     * 完成采购单
+     * @return
+     */
+    @PostMapping("/done")
+    public R done(@RequestBody PurchaseDoneVo purchaseDoneVo){
+        purchaseService.done(purchaseDoneVo);
+        return R.ok();
+    }
+    /**
+     * 领取采购单
+     * @return
+     */
+    @PostMapping("/received")
+    public R receive(@RequestBody List<Long> ids){
+        purchaseService.received(ids);
+        return R.ok();
+    }
+    /**
+     * 这里有两种逻辑
+     *      1 有purchaseId 合并 到 指定的采购单
+     *      2 没有 purchaseId  则 新建一个 采购单 ，再合并
+     * @param mergeVo
+     * @return
+     */
+    @PostMapping("/merge")
+    public R merge(@RequestBody MergeVo mergeVo){
+        purchaseService.mergePurchase(mergeVo);
+        return R.ok();
+    }
+    /**
+     * 列表
+     */
+    @RequestMapping("unreceive/list")
+    public R unreceiveList(@RequestParam Map<String, Object> params){
+        PageUtils page = purchaseService.queryPageUnReceivePurchase(params);
+        return R.ok().put("page", page);
+    }
     /**
      * 列表
      */
@@ -56,6 +96,9 @@ public class PurchaseController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody PurchaseEntity purchase){
+        purchase.setCreateTime(new Date());
+        purchase.setUpdateTime(new Date());
+        purchase.setStatus(WareConstant.PurchaseStatusEnum.CREATED.getCode());//默认状态为0 新增
 		purchaseService.save(purchase);
 
         return R.ok();

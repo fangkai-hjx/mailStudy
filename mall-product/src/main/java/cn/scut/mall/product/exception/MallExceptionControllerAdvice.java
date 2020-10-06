@@ -18,8 +18,8 @@ import java.util.Map;
  */
 @Slf4j
 //@ResponseBody
-//@ControllerAdvice(basePackages = "cn.scut.mall.product.controller")
-@RestControllerAdvice(basePackages = "cn.scut.mall.product.controller")//等价于上面两个
+//@ControllerAdvice(basePackages = "cn.scut.mall.product.app")
+@RestControllerAdvice(basePackages = "cn.scut.mall.product.app")//等价于上面两个
 public class MallExceptionControllerAdvice {
 
 

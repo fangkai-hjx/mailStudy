@@ -1,4 +1,4 @@
-package cn.scut.mall.product.controller;
+package cn.scut.mall.product.app;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,12 +49,12 @@ public class AttrGroupController {
         return R.ok().put("data",attrEntityList);
     }
 
-    //获取分类下所有分组&关联属性
+    //获取分类下所有分组关联属性
     //product/attrgroup/{catelogId}/withattr
     @GetMapping("/{catelogId}/withattr")
     public R getAttrGroupWithAttrs(@PathVariable("catelogId")Long catelogId){
         //查出当前 分类 下 的 所有属性 分组
-        List<AttrGroupWithAttrsVo> list = attrGroupService.getAttrGroupWithAttrsBy(catelogId);
+        List<AttrGroupWithAttrsVo> list = attrGroupService.getAttrGroupWithAttrsByCategory(catelogId);
         //查出每个属性分组的 所有属性
         return R.ok().put("data",list);
     }

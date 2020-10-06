@@ -8,6 +8,9 @@
 
 package cn.scut.common.utils;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import javafx.beans.binding.ObjectExpression;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -20,10 +23,26 @@ import java.util.Map;
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
-	
+
 	public R() {
 		put("code", 0);
 		put("msg", "success");
+	}
+	public R setData(Object data){
+		put("data",data);
+		return this;
+	}
+
+	/**
+	 * 不然 R 对象 是一个 map
+	 * 你传入 什么 类型  就可以获得 什么 类型
+	 * @return
+	 */
+	public <T> T getData(TypeReference<T> typeReference){
+		Object data = get("data");//因为这里默认 是 map
+		String jsonString = JSON.toJSONString(data);
+		T t = JSON.parseObject(jsonString, typeReference);
+		return t;
 	}
 	
 	public static R error() {
@@ -60,5 +79,8 @@ public class R extends HashMap<String, Object> {
 	public R put(String key, Object value) {
 		super.put(key, value);
 		return this;
+	}
+	public Integer getCode(){
+		return  Integer.parseInt(this.get("code").toString());
 	}
 }

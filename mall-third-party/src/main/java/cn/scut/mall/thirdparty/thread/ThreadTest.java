@@ -1,8 +1,6 @@
 package cn.scut.mall.thirdparty.thread;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 /**
  * 初始化线程的四种方式：
@@ -25,14 +23,20 @@ public class ThreadTest {
 //        new Thread(futureTask).start();
 //        Integer integer = futureTask.get();//等待异步任务执行完，获取返回结果--------------线程会阻塞在这里
 //        System.out.println(integer);
-        FutureTask<Integer> futureTask = new FutureTask<>(new Callable01());
-        Thread thread = new Thread(futureTask,"AAA");
-        thread.start();
 
-        Integer result01 = 100;
-        Integer integer = futureTask.get();//这个 最好 放在 最后，因为 会导致阻塞
-        System.out.println(result01+ integer);
-        System.out.println("main....end");
+//        FutureTask<Integer> futureTask = new FutureTask<>(new Callable01());
+//        Thread thread = new Thread(futureTask,"AAA");
+//        thread.start();
+//
+//        Integer result01 = 100;
+//        Integer integer = futureTask.get();//这个 最好 放在 最后，因为 会导致阻塞
+//        System.out.println(result01+ integer);
+//        System.out.println("main....end");
+        //当前系统中池只有一两个，每个异步任务，提交给线程池让他自己去执行
+//        ExecutorService service = Executors.newFixedThreadPool();
+//        ThreadPoolExecutor  threadPoolExecutor = new ThreadPoolExecutor()
+//        service.execute(new Runnable01());
+//        System.out.println("main....end");
     }
 
     public static class Thread01 extends Thread {

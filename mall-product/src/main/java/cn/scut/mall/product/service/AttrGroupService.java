@@ -21,6 +21,6 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
 
     PageUtils queryPage(Map<String, Object> params, Long catelogId);
 
-    List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsBy(Long catelogId);
+    List<AttrGroupWithAttrsVo> getAttrGroupWithAttrsByCategory(Long catelogId);
 }
 

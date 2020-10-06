@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement//开启事务
 @MapperScan("cn.scut.mall.product.dao")
-public class MyabtisConfig {
+public class MybatisConfig {
     //引入分页插件
     @Bean
     public PaginationInterceptor paginationInterceptor() {

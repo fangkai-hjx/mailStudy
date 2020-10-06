@@ -1,15 +1,13 @@
-package cn.scut.mall.product.controller;
+package cn.scut.mall.product.app;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import cn.scut.mall.product.entity.AttrGroupEntity;
 import cn.scut.mall.product.entity.BrandEntity;
 import cn.scut.mall.product.vo.BrandVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,8 +67,8 @@ public class CategoryBrandRelationController {
      * @return
      */
     @GetMapping("/brands/list")
-    public R relationBrandsList(@RequestParam("catId")Long catId){
-        List<BrandEntity>vos = categoryBrandRelationService.getBrandsByCatId(catId);//这里不返回Vo 是因为 可能 会有 其他 字段 信息 需要
+    public R relationBrandsList(@RequestParam(value = "catId",required = true)Long catId){
+        List<BrandEntity>vos = categoryBrandRelationService.getBrandsByCatId(catId);//这里不返回Vo 是因为 可能 会有 其他 字段 信息 需要,在service层 返回通用的
         List<BrandVo> collect = vos.stream().map((item) -> {
             BrandVo brandVo = new BrandVo();
             brandVo.setBrandId(item.getBrandId());
