@@ -1,5 +1,6 @@
 package cn.scut.mall.product.service;
 
+import cn.scut.mall.product.vo.Catalog2Vo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.scut.common.utils.PageUtils;
 import cn.scut.mall.product.entity.CategoryEntity;
@@ -25,5 +26,9 @@ public interface CategoryService extends IService<CategoryEntity> {
     Long[] findCatelogPath(Long catelogId);
 
     void updateCascade(CategoryEntity category);
+
+    List<CategoryEntity> getLevel1Categorys();
+
+    Map<String, List<Catalog2Vo>> getCatalogJson();
 }
 

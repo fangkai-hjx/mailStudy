@@ -12,6 +12,15 @@
         <result property="attrValue" column="attr_value"/>
         <result property="attrSort" column="attr_sort"/>
     </resultMap>
+    <select id="getSaleAttrsBySpuId" resultType="cn.scut.mall.product.vo.SkuItemVo$SkuItemSaleAttrVo">
+        SELECT attr_name attr_name,attr_id attr_id,GROUP_CONCAT(DISTINCT ssav.attr_value) attr_values FROM `pms_sku_info` si
+        LEFT JOIN `pms_sku_sale_attr_value`  ssav ON ssav.sku_id = si.sku_id
+        WHERE si.spu_id = #{spuId}
+        GROUP BY attr_name,attr_id
+    </select>
+    <select id="getSkuSaleAttrValuesAsString" resultType="java.lang.String">
+        SELECT CONCAT(attr_name,"：",attr_value) FROM `pms_sku_sale_attr_value` WHERE sku_id=#{skuId}
+    </select>
 
 
 </mapper>

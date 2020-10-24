@@ -1,11 +1,9 @@
 package cn.scut.mall.product.service.impl;
 
-import cn.scut.mall.product.entity.AttrAttrgroupRelationEntity;
 import cn.scut.mall.product.entity.AttrEntity;
-import cn.scut.mall.product.service.AttrAttrgroupRelationService;
 import cn.scut.mall.product.service.AttrService;
-import cn.scut.mall.product.vo.AttrGroupRelationVo;
 import cn.scut.mall.product.vo.AttrGroupWithAttrsVo;
+import cn.scut.mall.product.vo.SkuItemVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +78,30 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             return attrGroupWithAttrsVo;
         }).collect(Collectors.toList());
         return collect;
+    }
+
+    /**
+     * # 查询 spu 下的 属性分组信息 groupName\attrName\attrValue
+     * SELECT
+     * 	spu_id,
+     * 	ag.attr_group_name,
+     * 	ag.attr_group_id ,
+     * 	aar.attr_id,
+     * 	attr.attr_name,
+     * 	psv.attr_value
+     * FROM `pms_attr_group` ag
+     * LEFT JOIN `pms_attr_attrgroup_relation` aar ON aar.attr_group_id = ag.attr_group_id
+     * LEFT JOIN `pms_attr` attr ON attr.attr_id = aar.attr_id
+     * LEFT JOIN `pms_product_attr_value` psv ON aar.attr_id = psv.attr_id
+     * WHERE ag.catelog_id = 225 AND spu_id = 12
+     * @param spuId
+     * @param catelogId
+     * @return
+     */
+    @Override
+    public List<SkuItemVo.SpuItemAttrGroupVo> getAttrGroupWithAttrsBySpuId(Long spuId, Long catelogId) {
+        AttrGroupDao baseMapper = this.baseMapper;
+        List<SkuItemVo.SpuItemAttrGroupVo> spuItemAttrGroupVo = baseMapper.getAttrGroupWithAttrsBySpuId(spuId,catelogId);
+        return spuItemAttrGroupVo;
     }
 }

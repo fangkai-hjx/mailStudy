@@ -13,8 +13,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm # 格式化时间数据
   thymeleaf:
-    cache: false
-    prefix:
+    cache: false # 开发期间 便于调试 false
+  redis:
+    host: 222.201.187.166
+    port: 6379
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
@@ -27,4 +29,6 @@ server:
   port: 10000
 logging:
   level:
-    cn.scut.mall: debug
+    cn.scut.mall: error
+
+

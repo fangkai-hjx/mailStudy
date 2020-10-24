@@ -1,9 +1,13 @@
 package cn.scut.mall.member.service;
 
+import cn.scut.mall.member.vo.MemberLoginVo;
+import cn.scut.mall.member.vo.MemberRegistVo;
+import cn.scut.mall.member.vo.SocialUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.scut.common.utils.PageUtils;
 import cn.scut.mall.member.entity.MemberEntity;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -16,5 +20,15 @@ import java.util.Map;
 public interface MemberService extends IService<MemberEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void regist(MemberRegistVo vo);
+
+    void checkUsernameUnique(String username);
+
+    void checkPhoneUnique(String phone);
+
+    MemberEntity login(MemberLoginVo vo);
+
+    MemberEntity login(SocialUser vo) throws Exception;
 }
 

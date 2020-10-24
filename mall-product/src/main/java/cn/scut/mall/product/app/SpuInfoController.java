@@ -3,6 +3,7 @@ package cn.scut.mall.product.app;
 import java.util.Arrays;
 import java.util.Map;
 
+import cn.scut.mall.product.entity.SkuInfoEntity;
 import cn.scut.mall.product.vo.SpuSaveVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,17 @@ import cn.scut.common.utils.R;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    /**
+     * 根据skuId 查询 spu 信息
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/skuId/{skuId}")
+    public R getSpuInfoBySkuId(@PathVariable(value = "skuId")Long skuId){
+        SpuInfoEntity spuInfo = spuInfoService.getSpuInfoBySkuId(skuId);
+        return R.ok().setData(spuInfo);
+    }
 
     //http://localhost:88/api/product/spuinfo/12/up
     /**

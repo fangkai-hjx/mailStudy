@@ -39,7 +39,10 @@ public class R extends HashMap<String, Object> {
 	 * @return
 	 */
 	public <T> T getData(TypeReference<T> typeReference){
-		Object data = get("data");//因为这里默认 是 map
+		return getData("data",typeReference);
+	}
+	public <T> T getData(String msg ,TypeReference<T> typeReference){
+		Object data = get(msg);//因为这里默认 是 map
 		String jsonString = JSON.toJSONString(data);
 		T t = JSON.parseObject(jsonString, typeReference);
 		return t;

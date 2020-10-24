@@ -1,15 +1,20 @@
 package cn.scut.mall.member.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.scut.common.exception.BizCodeEnume;
+import cn.scut.mall.member.entity.MemberReceiveAddressEntity;
+import cn.scut.mall.member.exception.PhoneExistException;
+import cn.scut.mall.member.exception.UsernameExistException;
 import cn.scut.mall.member.feign.CouponFeignService;
+import cn.scut.mall.member.service.MemberReceiveAddressService;
+import cn.scut.mall.member.vo.MemberLoginVo;
+import cn.scut.mall.member.vo.MemberRegistVo;
+import cn.scut.mall.member.vo.SocialUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.member.entity.MemberEntity;
 import cn.scut.mall.member.service.MemberService;
@@ -26,13 +31,56 @@ import cn.scut.common.utils.R;
  * @date 2020-09-06 12:27:55
  */
 @RestController
-@RequestMapping("member/member")
+@RequestMapping("/member/member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
 
     @Autowired
     CouponFeignService couponFeignService;
+
+    @Autowired
+    MemberReceiveAddressService memberReceiveAddressService;
+
+    @GetMapping("/{memberId}/addresses")
+    public List<MemberReceiveAddressEntity> getAddress(@PathVariable(name = "memberId") Long memberId) {
+        List<MemberReceiveAddressEntity> addresses = memberReceiveAddressService.getAddress(memberId);
+        return addresses;
+    }
+
+    /**
+     * 社交登录
+     * @param vo
+     * @return
+     */
+    @PostMapping("/oauth2/login")
+    public R oauthlogin(@RequestBody SocialUser vo) throws Exception {//接收json数据
+        MemberEntity entity = memberService.login(vo);
+        if(entity != null){
+            return R.ok().put("data",entity);
+        }
+        return R.error(BizCodeEnume.LOGINACCT_PASSWORD_EXCEPTION.getCode(),BizCodeEnume.LOGINACCT_PASSWORD_EXCEPTION.getMessage());
+    }
+    @PostMapping("/login")
+    public R login(@RequestBody  MemberLoginVo vo){//接收json数据
+        MemberEntity entity = memberService.login(vo);
+        if(entity != null){
+            return R.ok().put("data",entity);
+        }
+       return R.error(BizCodeEnume.LOGINACCT_PASSWORD_EXCEPTION.getCode(),BizCodeEnume.LOGINACCT_PASSWORD_EXCEPTION.getMessage());
+    }
+
+    @PostMapping("/regist")
+    public R regist(@RequestBody MemberRegistVo vo){//RequestBody 就会POST请求 携带的 json 转化为 对象
+        try{
+            memberService.regist(vo);
+        }catch (PhoneExistException e1){
+            return R.error(BizCodeEnume.PHONE_EXIST_EXCEPTION.getCode(),BizCodeEnume.PHONE_EXIST_EXCEPTION.getMessage());
+        }catch (UsernameExistException e2){
+            return R.error(BizCodeEnume.USER_EXIST_EXCEPTION.getCode(),BizCodeEnume.USER_EXIST_EXCEPTION.getMessage());
+        }
+        return R.ok();
+    }
 
     @RequestMapping("/coupons")
     public R test(){

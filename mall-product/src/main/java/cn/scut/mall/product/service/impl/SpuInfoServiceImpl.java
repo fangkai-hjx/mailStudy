@@ -57,6 +57,9 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     SkuInfoService skuInfoService;
 
     @Autowired
+    SpuInfoService spuInfoService;
+
+    @Autowired
     SkuImagesService skuImagesService;
 
     @Autowired
@@ -255,7 +258,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         Map<Long, Boolean> booleanMap = null;
         try{
             R r = wareFeignService.getSkuHasStock(longs);
-            List<SkuHasStockVo> list2 = (List<SkuHasStockVo>) r.get("data");
+            //这里是个细节 注意
             TypeReference<List<SkuHasStockVo>> listTypeReference = new TypeReference<List<SkuHasStockVo>>(){};
             List<SkuHasStockVo> list = r.getData(listTypeReference);
 //            booleanMap = list.stream().collect(Collectors.toMap(SkuHasStockVo::getSkuId, item -> item.getHasStock()));
@@ -281,8 +284,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             skuEsModel.setHotScore(0L);
             //TODO 3 查出 品牌的 分类 和 名字 信息
             BrandEntity brandEntity = this.brandService.getById(sku.getBrandId());
-            skuEsModel.setBrandImg(brandEntity.getName());
-            skuEsModel.setBrandName(brandEntity.getLogo());
+            skuEsModel.setBrandImg(brandEntity.getLogo());
+            skuEsModel.setBrandName(brandEntity.getName());
             CategoryEntity categoryEntity = this.categoryService.getById(sku.getCatalogId());
             skuEsModel.setCatalogName(categoryEntity.getName());
 
@@ -299,6 +302,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             //远程调用失败
             //TODO 7 重复调用？？？？ 接口幂等性
         }
+    }
+
+    @Override
+    public SpuInfoEntity getSpuInfoBySkuId(Long skuId) {
+        SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+        SpuInfoEntity spuInfo = spuInfoService.getById(skuInfo.getSpuId());
+        return spuInfo;
     }
 
 

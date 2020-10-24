@@ -13,7 +13,7 @@ spring:
         - id: product_route
           uri: lb://mall-product
           predicates:
-            - Path=/api/product/**
+            - Path=/api/product/**,/hello
           filters:
             - RewritePath=/api/(?<segment>/?.*), /$\{segment} # 这里是把api去掉
             #           http://localhost:88/api/product/category/list/tree
@@ -53,5 +53,23 @@ spring:
 #            - http://localhost:8080/  renren-fast/captcha.jpg
 #            使用路径重写
 # http://localhost:88/api/blog/blog/list?t=1600400237129&page=1&limit=10&key= 404 (Not Found)
-
-
+        - id: mall_host_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-product
+          predicates:
+            - Host=mall.com,item.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+        - id: search_mall_host_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-search
+          predicates:
+            - Host=search.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+        - id: auth_mall_host_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-auth-server
+          predicates:
+            - Host=auth.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+        - id: mall_cart_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-cart
+          predicates:
+            - Host=cart.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+        - id: mall_order_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-order
+          predicates:
+            - Host=order.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址

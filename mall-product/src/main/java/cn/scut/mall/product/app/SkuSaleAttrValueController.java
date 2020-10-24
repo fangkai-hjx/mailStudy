@@ -1,14 +1,11 @@
 package cn.scut.mall.product.app;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.product.entity.SkuSaleAttrValueEntity;
 import cn.scut.mall.product.service.SkuSaleAttrValueService;
@@ -25,11 +22,18 @@ import cn.scut.common.utils.R;
  * @date 2020-09-06 11:09:20
  */
 @RestController
-@RequestMapping("product/skusaleattrvalue")
+@RequestMapping("/product/skusaleattrvalue")
 public class SkuSaleAttrValueController {
     @Autowired
     private SkuSaleAttrValueService skuSaleAttrValueService;
-
+    /**
+     * 信息
+     */
+    @GetMapping("/stringlist/{skuId}")
+    public List<String> getSkuSaleAttrValues(@PathVariable("skuId") Long skuId){
+        List<String> strings = skuSaleAttrValueService.getSkuSaleAttrValuesAsString(skuId);
+        return strings;
+    }
     /**
      * 列表
      */

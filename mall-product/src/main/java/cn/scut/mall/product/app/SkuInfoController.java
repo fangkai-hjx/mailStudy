@@ -1,14 +1,13 @@
 package cn.scut.mall.product.app;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import cn.scut.mall.product.service.SkuSaleAttrValueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.scut.mall.product.entity.SkuInfoEntity;
 import cn.scut.mall.product.service.SkuInfoService;
@@ -30,6 +29,12 @@ public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
 
+    @GetMapping("/{skuId}/price")
+    public BigDecimal getPrice(@PathVariable("skuId")Long skuId){
+        SkuInfoEntity infoEntity = skuInfoService.getById(skuId);
+        return infoEntity.getPrice();
+    }
+
     /**
      * 列表
      */
@@ -44,7 +49,7 @@ public class SkuInfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{skuId}")
+    @GetMapping("/info/{skuId}")
     public R info(@PathVariable("skuId") Long skuId){
 		SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 

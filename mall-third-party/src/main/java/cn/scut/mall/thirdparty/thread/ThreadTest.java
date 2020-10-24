@@ -19,10 +19,10 @@ public class ThreadTest {
 //        Runnable01 runnable01 = new Runnable01();
 //        new Thread(runnable01).start();
 
-//        FutureTask<Integer> futureTask = new FutureTask<>(new Callable01());
-//        new Thread(futureTask).start();
-//        Integer integer = futureTask.get();//等待异步任务执行完，获取返回结果--------------线程会阻塞在这里
-//        System.out.println(integer);
+        FutureTask<Integer> futureTask = new FutureTask<>(new Callable01());
+        new Thread(futureTask).start();
+        Integer integer = futureTask.get();//等待异步任务执行完，获取返回结果--------------线程会阻塞在这里
+        System.out.println(integer);
 
 //        FutureTask<Integer> futureTask = new FutureTask<>(new Callable01());
 //        Thread thread = new Thread(futureTask,"AAA");
@@ -36,7 +36,7 @@ public class ThreadTest {
 //        ExecutorService service = Executors.newFixedThreadPool();
 //        ThreadPoolExecutor  threadPoolExecutor = new ThreadPoolExecutor()
 //        service.execute(new Runnable01());
-//        System.out.println("main....end");
+        System.out.println("main....end");
     }
 
     public static class Thread01 extends Thread {

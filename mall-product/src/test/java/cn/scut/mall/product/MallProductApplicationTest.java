@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.ByteArrayInputStream;
@@ -16,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +30,9 @@ public class MallProductApplicationTest {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
 
 //    //测试文件上传
 //    @Test
@@ -67,5 +74,16 @@ public class MallProductApplicationTest {
     public void test2() {
         Long[] catelogPath = categoryService.findCatelogPath(225L);
         System.out.println(Arrays.asList(catelogPath));
+    }
+    /**
+     * 测试 redis
+     */
+    @Test
+    public void testRedis() {
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        ops.set("hello", UUID.randomUUID().toString());
+
+        String key = "hello";
+        System.out.println(ops.get(key));
     }
 }

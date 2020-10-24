@@ -22,5 +22,10 @@
         <module>mall-third-party</module>
         <module>manager-blog</module>
         <module>mall-search</module>
+        <module>mall-auth-server</module>
+        <module>mall-sso-server-test</module>
+        <module>mall-sso-client-test</module>
+        <module>mall-sso-client2-test</module>
+        <module>mall-cart</module>
     </modules>
 </project>

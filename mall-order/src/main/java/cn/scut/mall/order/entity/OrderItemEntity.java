@@ -68,7 +68,8 @@ public class OrderItemEntity implements Serializable {
 	/**
 	 * 商品sku价格
 	 */
-	private BigDecimal skuPrice;
+	private BigDecimal
+			skuPrice;
 	/**
 	 * 商品购买的数量
 	 */
