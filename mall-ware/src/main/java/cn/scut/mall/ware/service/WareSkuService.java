@@ -1,5 +1,7 @@
 package cn.scut.mall.ware.service;
 
+import cn.scut.common.to.mq.OrderTo;
+import cn.scut.common.to.mq.StockLockedTo;
 import cn.scut.mall.ware.vo.LockStockResult;
 import cn.scut.mall.ware.vo.SkuHasStockVo;
 import cn.scut.mall.ware.vo.WareSkuLockVo;
@@ -29,5 +31,9 @@ public interface WareSkuService extends IService<WareSkuEntity> {
     List<SkuHasStockVo> getSkuHasStock(List<Long> skuIds);
 
     Boolean orderLockStock(WareSkuLockVo vo);
+
+    void unLockStock(StockLockedTo to);
+
+    void unLockStock(OrderTo to);
 }
 

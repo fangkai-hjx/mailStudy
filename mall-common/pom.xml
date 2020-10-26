@@ -71,10 +71,10 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!--seata事务管理 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>-->
+<!--        </dependency>-->
         <!--nacos 配置中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
