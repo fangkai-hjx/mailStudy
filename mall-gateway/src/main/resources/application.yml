@@ -18,6 +18,12 @@ spring:
             - RewritePath=/api/(?<segment>/?.*), /$\{segment} # 这里是把api去掉
             #           http://localhost:88/api/product/category/list/tree
             #           http://localhost:10000/product/category/list/tree
+        - id: coupon_route
+          uri: lb://mall-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /$\{segment} # 这里是把api去掉
         - id: blog_route
           uri: lb://blog-manager
           predicates:
@@ -73,3 +79,7 @@ spring:
           uri: lb://mall-order
           predicates:
             - Host=order.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+        - id: mall_member_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-member
+          predicates:
+            - Host=member.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址

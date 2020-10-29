@@ -66,7 +66,7 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
     @Override
     public FareVo getFare(Long addrId) {
         FareVo fareVo = new FareVo();
-        R info = memberFeignService.info(addrId);
+        R info = memberFeignService.info(addrId);//库存服务 调用 用户服务---》注意连接器配置，这时候不需要拦截
         MemberAddressVo data = info.getData("memberReceiveAddress",new TypeReference<MemberAddressVo>() {//查到收货地址
         });
         if (data != null) {

@@ -5,6 +5,7 @@ import cn.scut.common.to.mq.StockLockedTo;
 import cn.scut.mall.ware.vo.LockStockResult;
 import cn.scut.mall.ware.vo.SkuHasStockVo;
 import cn.scut.mall.ware.vo.WareSkuLockVo;
+import com.alipay.api.AlipayApiException;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.scut.common.utils.PageUtils;
 import cn.scut.mall.ware.entity.WareSkuEntity;

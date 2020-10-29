@@ -88,7 +88,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     @Override
-    public MemberEntity login(MemberLoginVo vo) {
+    public MemberEntity
+    login(MemberLoginVo vo) {
         MemberDao baseMapper = this.baseMapper;
         //去数据库查询 加密 后 的 密码
         //用户可以 用 用户名 或者 手机号

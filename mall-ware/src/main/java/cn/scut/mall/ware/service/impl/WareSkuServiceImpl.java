@@ -13,6 +13,11 @@ import cn.scut.mall.ware.service.WareOrderTaskDetailService;
 import cn.scut.mall.ware.service.WareOrderTaskService;
 import cn.scut.mall.ware.vo.*;
 import com.alibaba.fastjson.TypeReference;
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradeCloseRequest;
+import com.alipay.api.response.AlipayTradeCloseResponse;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.rabbitmq.client.Channel;
 import lombok.Data;
@@ -158,7 +163,6 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         WareOrderTaskEntity task = new WareOrderTaskEntity();
         task.setOrderSn(vo.getOrderSn());
         task.setTaskStatus(1);//库存锁定
-
         wareOrderTaskService.save(task);
         //1 按照 下单的收货地址，找到一个就近仓库，锁定库存-------------这里不做了
         //TODO 找到每个商品在那个仓库都有库存

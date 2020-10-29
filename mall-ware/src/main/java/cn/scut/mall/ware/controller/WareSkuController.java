@@ -9,6 +9,7 @@ import cn.scut.mall.ware.exception.NoStockException;
 import cn.scut.mall.ware.vo.LockStockResult;
 import cn.scut.mall.ware.vo.SkuHasStockVo;
 import cn.scut.mall.ware.vo.WareSkuLockVo;
+import com.alipay.api.AlipayApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,8 +1,7 @@
 package cn.scut.mall.order.service;
 
-import cn.scut.mall.order.vo.OrderConfirmVo;
-import cn.scut.mall.order.vo.OrderSubmitVo;
-import cn.scut.mall.order.vo.SubmitOrderResponseVo;
+import cn.scut.mall.order.vo.*;
+import com.alipay.api.AlipayApiException;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.scut.common.utils.PageUtils;
 import cn.scut.mall.order.entity.OrderEntity;
@@ -28,5 +27,11 @@ public interface OrderService extends IService<OrderEntity> {
     OrderEntity getOrderByOrderSn(String orderSn);
 
     void closeOrder(OrderEntity entity);
+
+    PayVo getOrderPay(String orderSn);
+
+    PageUtils queryPageWithItem(Map<String, Object> params);
+
+    String handlePayResult(PayAsyncVo vo) ;
 }
 

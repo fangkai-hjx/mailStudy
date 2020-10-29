@@ -27,5 +27,6 @@
         <module>mall-sso-client-test</module>
         <module>mall-sso-client2-test</module>
         <module>mall-cart</module>
+        <module>mall-seckill</module>
     </modules>
 </project>
