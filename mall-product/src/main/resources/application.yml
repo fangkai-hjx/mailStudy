@@ -29,6 +29,6 @@ server:
   port: 10000
 logging:
   level:
-    cn.scut.mall: error
+    cn.scut.mall: debug
 
 

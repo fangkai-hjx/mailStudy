@@ -3,11 +3,11 @@ spring:
     gateway:
       routes:
         - id: test_route
-          uri: https://www.baidu.com
+          uri: https://www.baidu.shop
           predicates:
             - Query=url,baidu
         - id: qq_route
-          uri: https://www.qq.com
+          uri: https://www.qq.shop
           predicates:
             - Query=url,qq
         - id: product_route
@@ -62,24 +62,28 @@ spring:
         - id: mall_host_route  # nginx 的 请求 到来，按照host 的 值来 配置
           uri: lb://mall-product
           predicates:
-            - Host=mall.com,item.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+            - Host=fkmall.shop,item.fkmall.shop  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
         - id: search_mall_host_route  # nginx 的 请求 到来，按照host 的 值来 配置
           uri: lb://mall-search
           predicates:
-            - Host=search.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+            - Host=search.fkmall.shop  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
         - id: auth_mall_host_route  # nginx 的 请求 到来，按照host 的 值来 配置
           uri: lb://mall-auth-server
           predicates:
-            - Host=auth.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+            - Host=auth.fkmall.shop  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
         - id: mall_cart_route  # nginx 的 请求 到来，按照host 的 值来 配置
           uri: lb://mall-cart
           predicates:
-            - Host=cart.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+            - Host=cart.fkmall.shop  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
         - id: mall_order_route  # nginx 的 请求 到来，按照host 的 值来 配置
           uri: lb://mall-order
           predicates:
-            - Host=order.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+            - Host=order.fkmall.shop  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
         - id: mall_member_route  # nginx 的 请求 到来，按照host 的 值来 配置
           uri: lb://mall-member
           predicates:
-            - Host=member.mall.com  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+            - Host=member.fkmall.shop  # 注意这里 有个问题  以为 nginx 转过来的 时候 没有 带host主机地址
+        - id: mall_seckill_route  # nginx 的 请求 到来，按照host 的 值来 配置
+          uri: lb://mall-seckill
+          predicates:
+            - Host=seckill.fkmall.shop

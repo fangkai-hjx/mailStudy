@@ -33,5 +33,7 @@ public interface OrderService extends IService<OrderEntity> {
     PageUtils queryPageWithItem(Map<String, Object> params);
 
     String handlePayResult(PayAsyncVo vo) ;
+
+    void createSeckillOrder(OrderService orderService);
 }
 

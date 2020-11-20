@@ -307,6 +307,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         return "success";
     }
 
+    @Override
+    public void createSeckillOrder(OrderService orderService) {
+        //TODO 保存订单信息----应该 之前 还有个 确认页
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderSn(orderEntity.getOrderSn());
+    }
+
     //保存订单到数据库
     private void saveOrder(OrderCreateTo order) {
         OrderEntity orderEntity = order.getOrder();

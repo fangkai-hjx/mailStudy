@@ -88,7 +88,6 @@ public class WareInfoController {
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
 		wareInfoService.removeByIds(Arrays.asList(ids));
-
         return R.ok();
     }
 

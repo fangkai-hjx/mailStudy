@@ -2,7 +2,7 @@ package cn.scut.mall.mallorder;
 
 import cn.scut.mall.order.entity.OrderReturnReasonEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
