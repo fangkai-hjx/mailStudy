@@ -5,7 +5,7 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         druid:
             driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://222.201.187.166:3306/mall_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+            url: jdbc:mysql://222.201.187.166:3307/mall_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
             username: root
             password: root@1234
             initial-size: 10
@@ -37,7 +37,7 @@ spring:
     cloud:
         nacos:
             discovery:
-                server-addr: 127.0.0.1:8848
+                server-addr: 222.201.187.155:8848
 
 
 ##多数据源的配置

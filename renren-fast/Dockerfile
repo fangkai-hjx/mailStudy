@@ -1,7 +1,3 @@
-FROM java:8
-EXPOSE 8080
-
-VOLUME /tmp
-ADD renren-fast.jar  /app.jar
-RUN bash -c 'touch /app.jar'
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM nginx
+COPY /dist/ /usr/share/nginx/html/
+COPY /nginx/default.conf /etc/nginx/conf.d/default.conf
