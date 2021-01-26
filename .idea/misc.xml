@@ -7,6 +7,17 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/mall-coupon/pom.xml" />
+        <option value="$PROJECT_DIR$/mall-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/mall-member/pom.xml" />
+        <option value="$PROJECT_DIR$/mall-product/pom.xml" />
+        <option value="$PROJECT_DIR$/mall-search/pom.xml" />
+        <option value="$PROJECT_DIR$/mall-third-party/pom.xml" />
+        <option value="$PROJECT_DIR$/mall-ware/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

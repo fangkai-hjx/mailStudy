@@ -18,6 +18,7 @@
         <module>mall-third-party</module>
         <module>mall-search</module>
         <module>mall-ware</module>
+        <module>mall-cart</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
