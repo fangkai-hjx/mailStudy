@@ -3,30 +3,43 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cn.scut.mall</groupId>
-    <artifactId>mailStudy</artifactId>
+    <description>FK商城项目（学习类型）</description>
+    <groupId>cn.scut</groupId>
+    <artifactId>FK-MALL</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <description>聚合服务</description>
-
     <modules>
-        <module>mall-product</module>
-        <module>mall-coupon</module>
-        <module>mall-ware</module>
-        <module>mall-member</module>
-        <module>mall-order</module>
-        <module>renren-fast</module>
-        <module>renren-generator</module>
         <module>mall-common</module>
+        <module>mall-product</module>
+        <module>mall-order</module>
+        <module>mall-coupon</module>
+        <module>mall-member</module>
         <module>mall-gateway</module>
         <module>mall-third-party</module>
-        <module>manager-blog</module>
         <module>mall-search</module>
-        <module>mall-auth-server</module>
-        <module>mall-sso-server-test</module>
-        <module>mall-sso-client-test</module>
-        <module>mall-sso-client2-test</module>
+        <module>mall-ware</module>
         <module>mall-cart</module>
-        <module>mall-seckill</module>
     </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

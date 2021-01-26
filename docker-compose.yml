@@ -1,0 +1,113 @@
+version: 'v1'
+services:
+  mall-database:
+    build:
+      context: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: root@1234
+    restart: always
+    container_name: mall-mysql
+    image: mall-mysql
+    ports:
+      - 3306:3306
+  mall-register:
+    build:
+      context: ./mall-register
+    restart: always
+    ports:
+      - 8848:8848
+    container_name: mall-register
+    hostname: mall-register
+    image: pig-register
+  renren-fast:
+    image: renren/fast
+    ports:
+      - "8080:8080"
+    environment:
+    - spring.profiles.active=dev
+  mall-gateway:
+    build:
+      context: ./mall-gateway
+    restart: always
+    ports:
+      - 9999:9999
+    container_name: mall-gateway
+    hostname: mall-gateway
+    image: mall-gateway
+
+  mall-auth-server:
+    build:
+      context: ./mall-auth-server
+    restart: always
+    container_name: mall-auth-server
+    hostname: mall-auth-server
+    image: mall-auth-server
+
+  mall-order:
+    build:
+      context: ./mall-order
+    restart: always
+    container_name: mall-order
+    hostname:
+    image: mall-order
+
+  mall-cart:
+    build:
+      context: ./mall-cart
+    restart: always
+    ports:
+      - 5001:5001
+    container_name: mall-cart
+    hostname: mall-cart
+    image: mall-cart
+
+  mall-member:
+    build:
+      context: ./mall-member
+    restart: always
+    image: mall-member
+    container_name: mall-member
+    ports:
+      - 5003:5003
+
+  mall-prodcut:
+    build:
+      context: ./mall-product
+    restart: always
+    container_name: mall-product
+    image: mall-product
+
+  mall-search:
+    build:
+      context: ./mall-search
+    restart: always
+    container_name: mall-search
+    image: mall-search
+
+  mall-seckill:
+    build:
+      context: ./mall-seckill
+    restart: always
+    container_name: mall-seckill
+    image: mall-seckill
+
+  mall-ware:
+    build:
+      context: ./mall-ware
+    restart: always
+    container_name: mall-ware
+    image: mall-ware
+
+  mall-third-party:
+    build:
+      context: ./mall-third-party
+    restart: always
+    container_name: mall-third-party
+    image: mall-third-party
+
+  mall-coupon:
+    build:
+      context: ./mall-coupon
+    restart: always
+    container_name: mall-coupon
+    image: mall-coupon

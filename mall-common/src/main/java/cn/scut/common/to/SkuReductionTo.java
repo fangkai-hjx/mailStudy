@@ -8,11 +8,14 @@ import java.util.List;
 @Data
 public class SkuReductionTo {
     private Long skuId;
-    private int fullCount;//满几件
-    private BigDecimal discount;//打几折
-    private int countStatus;//打折是否叠加其他优惠
-    private BigDecimal fullPrice;//满多少
-    private BigDecimal reducePrice;//减多少
+    //满几件减打折
+    private int fullCount;
+    private BigDecimal discount;
+    private int countStatus;
+    //满多少钱 打折
+    private BigDecimal fullPrice;
+    private BigDecimal reducePrice;
     private int priceStatus;
-    private List<MemberPrice> memberPrice;//会员价格
+    //会员价
+    private List<MemberPrice> memberPrice;
 }
